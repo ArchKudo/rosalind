@@ -1,8 +1,0 @@
-out/*
-gdv*
-tmp/*
-node_modules
-.*
-__pycache__/*
-*.html
-output_main.tsv
