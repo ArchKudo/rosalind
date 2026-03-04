@@ -1,10 +1,13 @@
+from typing import Dict
+
+
 class Node:
     def __init__(self):
         self.children: Dict[str, "Node"] = {}
         self.covers = set()
 
-class Trie:
 
+class Trie:
     def __init__(self, *seqs: str):
 
         self.root = Node()
@@ -20,8 +23,6 @@ class Trie:
         self.calculate()
 
         print(f"Found lcsm of length {self.maxl} and value {self.lcsm}")
-
-
 
     def add_seq(self, seq: str, uid: int):
         curr = self.root
@@ -47,8 +48,6 @@ class Trie:
                 curr.covers.add(uid)
                 print(f"\t\tCurrent set to {curr}")
 
-
-
     def calculate(self):
         def dfs(node: Node, path: str):
             print(f"Searching through node: {node} with path: {path}")
@@ -70,7 +69,6 @@ class Trie:
 
 
 if __name__ == "__main__":
-
     trie = Trie("GATTACA", "TAGACCA", "ATACA")
 
     print(trie.lcsm)

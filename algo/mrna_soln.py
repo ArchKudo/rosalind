@@ -1,8 +1,10 @@
-from Bio.Data import CodonTable
 from collections import Counter
+
 # from operator import countOf
 from math import prod
 from typing import Dict
+
+from Bio.Data import CodonTable
 
 table = CodonTable.unambiguous_rna_by_name["Standard"]
 
@@ -20,9 +22,7 @@ def mrna(protein: str, counts: Dict[str, int], stops: int):
 
 
 if __name__ == "__main__":
-
     with open("rosalind_mrna.txt", "r") as f:
         protein = f.read()
 
     print(mrna(protein, counts, stops))
-

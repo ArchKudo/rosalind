@@ -1,27 +1,28 @@
 from typing import List
-def parse_fasta(file: str) -> List[str] :
+
+
+def parse_fasta(file: str) -> List[str]:
     """
     Change to return just the sequences
     """
 
     with open(file, "r") as f:
         fasta = f.read()
-        pairs = [read.splitlines() for read in fasta.split(">")[1:] ]
+        pairs = [read.splitlines() for read in fasta.split(">")[1:]]
         seqs = ["".join(x[1:]) for x in pairs]
         # print(seqs)
         return seqs
 
+
 def lcsmbs(seqs: List[str]) -> str:
     shortest = min(seqs, key=len)
-    
-    sl: int = 1 # shortest possible length of substring
-    ll: int = len(shortest) # longest possible length of substring
 
-    best: str = "" # longest common substring
+    sl: int = 1  # shortest possible length of substring
+    ll: int = len(shortest)  # longest possible length of substring
 
+    best: str = ""  # longest common substring
 
     while sl <= ll:
-        
         found = None
         mid = (sl + ll) // 2
 
@@ -29,18 +30,17 @@ def lcsmbs(seqs: List[str]) -> str:
         span = range(len(shortest) - mid + 1)
 
         for i in span:
-            substr = shortest[i: i + mid]
+            substr = shortest[i : i + mid]
             if all(substr in seq for seq in seqs):
                 found = substr
                 break
 
         if found:
             best = found
-            sl = mid + 1 # Exclude lengths shorter than current
+            sl = mid + 1  # Exclude lengths shorter than current
         else:
-            ll = mid - 1 # Exclude lengths longer than current
-            
-    
+            ll = mid - 1  # Exclude lengths longer than current
+
     return best
 
     """
@@ -75,6 +75,7 @@ def lcsmbs(seqs: List[str]) -> str:
     [0:2] [1:3] [2:4]
 
     """
+
 
 if __name__ == "__main__":
     seqs = parse_fasta("lcsm_demo.fa")

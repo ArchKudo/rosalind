@@ -3,10 +3,11 @@ class Node:
         self.children = {}
         self.indexes = set()
 
+
 class STree:
     def __init__(self):
         self.root = Node()
-        
+
     def add_suffix(self, suffix, idx):
         node = self.root
         for char in suffix:
@@ -44,6 +45,6 @@ def lcsm(strings):
 
     return tree.lcsm(len(strings))
 
-if __name__ == '__main__':
-    print(lcsm(["ACAG" , "ACAGGGGA", "GGGGACATTT"]))
 
+if __name__ == "__main__":
+    print(lcsm(["ACAG", "ACAGGGGA", "GGGGACATTT"]))

@@ -31,4 +31,12 @@ MTPRLGLESLLE
 		1. Iterate i+3, n
 			1. if i+3, i+4, i+5 in stop_codon
 				1. add to possible proteins
-			2. 
+
+```
+XXATGCAATAG
+
+outer loop +1
+XXA XAT <ATG>
+inner loop + 3:
+	CAATAG
+```

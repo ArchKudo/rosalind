@@ -9,3 +9,8 @@ version = "0.1.0"
 
 [dependencies]
 biopython = ">=1.86,<2"
+black = ">=26.1.0,<27"
+isort = ">=8.0.1,<9"
+pre-commit = ">=4.5.1,<5"
+ruff = ">=0.15.4,<0.16"
+mypy = ">=1.19.1,<2"

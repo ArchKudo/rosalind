@@ -1,13 +1,14 @@
-from typing import List,Set, Dict
+from typing import Dict, List, Set
 
-def parse_fasta(file: str) -> List[str] :
+
+def parse_fasta(file: str) -> List[str]:
     """
     Change to return just the sequences
     """
 
     with open(file, "r") as f:
         fasta = f.read()
-        pairs = [read.splitlines() for read in fasta.split(">")[1:] ]
+        pairs = [read.splitlines() for read in fasta.split(">")[1:]]
         seqs = ["".join(x[1:]) for x in pairs]
         # print(seqs)
         return seqs
@@ -42,11 +43,13 @@ def kmers(seq: str) -> List[str]:
 
 
 def kemrs(seq: str) -> Set[str]:
-    return sorted(list({
-        seq[i:k]
-        for i in range(len(seq))
-        for k in range(i + 1, len(seq) + 1, 1)
-        }), key=len, reverse=True)
+    return sorted(
+        list(
+            {seq[i:k] for i in range(len(seq)) for k in range(i + 1, len(seq) + 1, 1)}
+        ),
+        key=len,
+        reverse=True,
+    )
 
 
 def lcsm(seqs: List[str]) -> str:
@@ -64,13 +67,14 @@ def lcsm(seqs: List[str]) -> str:
         if res:
             return kmer
 
+
 class Node:
     def __init__(self):
         self.children: Dict[str, "Node"] = {}
         self.covers = set()
 
-class Trie:
 
+class Trie:
     def __init__(self, *seqs: str):
 
         self.root = Node()
@@ -86,8 +90,6 @@ class Trie:
         self.calculate()
 
         # print(f"Found lcsm of length {self.maxl} and value {self.lcsm}")
-
-
 
     def add_seq(self, seq: str, uid: int):
         curr = self.root
@@ -113,8 +115,6 @@ class Trie:
                 curr.covers.add(uid)
                 # print(f"\t\tCurrent set to {curr}")
 
-
-
     def calculate(self):
         def dfs(node: Node, path: str):
             # print(f"Searching through node: {node} with path: {path}")
@@ -134,8 +134,9 @@ class Trie:
         # print(f"Count of sequences is {self.count}")
         dfs(self.root, "")
 
+
 def lcsmbf(seqs: List[str]) -> str:
-    shortest = min(seqs, key = len)
+    shortest = min(seqs, key=len)
     """
     ABCD
     A [0:1]
@@ -152,7 +153,7 @@ def lcsmbf(seqs: List[str]) -> str:
     longest = ""
 
     for i in range(len(shortest)):
-        for j in range(i+1, len(shortest)):
+        for j in range(i + 1, len(shortest)):
             print(f"[{i}:{j}]")
             print(f"{shortest[i:j]}")
             found = all(shortest[i:j] in seq for seq in seqs)
@@ -163,10 +164,10 @@ def lcsmbf(seqs: List[str]) -> str:
                 longest = candidate
                 print(longest)
 
-
     print(f"Longest is {longest}")
 
     return longest
+
 
 def lcsmbs(seqs: List[str]) -> str:
     shortest: str = min(seqs, key=len)
@@ -195,7 +196,7 @@ def lcsmbs(seqs: List[str]) -> str:
         span = range(len(shortest) - mid + 1)
         for start in span:
             print(f"Slice is from {start}: {start + mid}")
-            substr = shortest[start: start + mid]
+            substr = shortest[start : start + mid]
             print(f"Substring is {substr}")
             if all(substr in seq for seq in seqs):
                 found = substr
