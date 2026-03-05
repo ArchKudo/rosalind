@@ -40,3 +40,26 @@ XXA XAT <ATG>
 inner loop + 3:
 	CAATAG
 ```
+
+## Solution
+
+```python
+def orf(dna: str, codons: Dict[str, str], start: List[str], stop: List[str]):
+
+    proteins = []
+    n = len(dna)
+
+    start_ptr = 0
+
+    while start_ptr <= n - 6:
+        if dna[start_ptr : start_ptr + 3] in start:
+            for ptr in range(start_ptr + 3, n, 3):
+                if dna[ptr : ptr + 3] in stop:
+                    proteins.append(translate(dna[start_ptr:ptr]))
+                    break
+
+        start_ptr += 1
+
+    return proteins
+```
+
