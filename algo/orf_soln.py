@@ -25,15 +25,9 @@ def orf(dna: str, codons: Dict[str, str], start: List[str], stop: List[str]):
     start_ptr = 0
 
     while start_ptr <= n - 6:
-        print(f"start pointer at {start_ptr} of {n - 6}")
-        if dna[start_ptr : start_ptr + 3] not in start:
-            print(f"Did not find start codon at {dna[start_ptr : start_ptr + 3]}")
-        else:
-            print(f"Found start codon at {dna[start_ptr : start_ptr + 3]}")
+        if dna[start_ptr : start_ptr + 3] in start:
             for ptr in range(start_ptr + 3, n, 3):
                 if dna[ptr : ptr + 3] in stop:
-                    print(f"Found stop codon at {dna[ptr : ptr + 3]}")
-                    print(f"Adding {translate(dna[start_ptr:ptr])} to {proteins}")
                     proteins.append(translate(dna[start_ptr:ptr]))
                     break
 
@@ -42,7 +36,7 @@ def orf(dna: str, codons: Dict[str, str], start: List[str], stop: List[str]):
     return proteins
 
 
-def orfs(template: str, codons, start, stop):
+def orfs(template: str, codons: Dict[str, str], start: List[str], stop: List[str]):
     dna = Seq(template)
     cdna = dna.reverse_complement()
 
@@ -50,7 +44,9 @@ def orfs(template: str, codons, start, stop):
 
 
 if __name__ == "__main__":
-    dna = "AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG"
+    with open("rosalind_orf.txt", "r") as f:
+        fasta = f.read()
+        dna = "".join(fasta.splitlines()[1:])
 
     proteins = orfs(dna, codons, start, stop)
 
