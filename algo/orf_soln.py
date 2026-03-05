@@ -19,7 +19,7 @@ def translate(dna: str):
 
 def orf(dna: str, codons: Dict[str, str], start: List[str], stop: List[str]):
 
-    proteins = []
+    proteins = set()
     n = len(dna)
 
     start_ptr = 0
@@ -28,11 +28,10 @@ def orf(dna: str, codons: Dict[str, str], start: List[str], stop: List[str]):
         if dna[start_ptr : start_ptr + 3] in start:
             for ptr in range(start_ptr + 3, n, 3):
                 if dna[ptr : ptr + 3] in stop:
-                    proteins.append(translate(dna[start_ptr:ptr]))
+                    proteins.add(translate(dna[start_ptr:ptr]))
                     break
 
         start_ptr += 1
-
     return proteins
 
 
@@ -40,7 +39,7 @@ def orfs(template: str, codons: Dict[str, str], start: List[str], stop: List[str
     dna = Seq(template)
     cdna = dna.reverse_complement()
 
-    return set(orf(str(dna), codons, start, stop) + orf(str(cdna), codons, start, stop))
+    return orf(str(dna), codons, start, stop) | orf(str(cdna), codons, start, stop)
 
 
 if __name__ == "__main__":
