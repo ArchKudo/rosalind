@@ -17,13 +17,6 @@ if __name__ == "__main__":
         pairs = ["".join(x[1:]) for x in pairs]
 
     dna = splice(pairs[0], pairs[1:])
-
-    print(dna)
-
     seq = Seq(dna)
-
     start = seq.find("ATG")
-
-    print(start)
-
     print(seq[start:].translate(to_stop=True))
