@@ -1,16 +1,16 @@
+from typing import List
 from Bio.Seq import Seq
 
 
-def revp(dna: str):
+def revp(dna: str) -> List[(int, int)]:
 
-    seq53 = Seq(dna)
-    rev35 = seq53.reverse_complement()[::-1]
+    seq = Seq(dna)
 
     pals = [
         (i + 1, j)
         for j in range(4, 13)
-        for i in range(len(seq53) - j + 1)
-        if seq53[i : i + j] == rev35[i : i + j][::-1]
+        for i in range(len(seq) - j + 1)
+        if seq[i : i + j] == seq[i : i + j].reverse_complement()
     ]
 
     return pals
