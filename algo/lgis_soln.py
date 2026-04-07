@@ -1,36 +1,46 @@
-from itertools import combinations
-from typing import Callable
+def lis(sz: int, arr: list[int]) -> list[int]:
 
+    if sz == 0:
+        return arr
 
-def inc(vec: list[int]) -> bool:
-    return all(nxt >= cur for cur, nxt in zip(vec, vec[1:]))
+    dp = [1] * sz
+    prev = [-1] * sz
 
+    for i in range(sz):
+        print(f"i={i}")
+        for j in range(i):
+            print(f"\tj={j}")
+            print(f"\t arr[{j}]={arr[j]} arr[{i}]={arr[i]}")
+            print(f"\t dp[j]={dp[j]} dp[j]+1={dp[j] + 1} dp[i]={dp[i]}")
+            if arr[j] < arr[i] and dp[j] + 1 > dp[i]:
+                dp[i] = dp[j] + 1
 
-def dec(vec: list[int]) -> bool:
-    return all(cur >= nxt for cur, nxt in zip(vec, vec[1:]))
+                print(f"\t\tdp[{i}]={dp[i]}")
+                print(f"\t\tdp[{j}]={dp[j]}")
+                print(f"\t\tdp[{j}]+1={dp[j] + 1}")
 
+                prev[i] = j
+                print(f"\t\tprev[{i}]={prev[i]}")
 
-def nxt(mat: list[list[int]], fun: Callable[[list[int]], bool]) -> list[int] | None:
-    return next(filter(fun, mat), None)
+    bestend = 0
 
+    for i in range(1, sz):
+        if dp[i] > dp[bestend]:
+            bestend = i
 
-def lxs(sz: int, vec: list[int], fun: Callable[[list[int]], bool]) -> list[int]:
-    if fun(vec):
-        return vec
-    for i in range(sz - 1, 0, -1):
-        if x := nxt(combinations(vec, i), fun):
-            return x
+    result = []
+    k = bestend
 
+    print(prev)
+    while k != -1:
+        print(k)
+        result.append(arr[k])
+        k = prev[k]
+        print(f"\t{k}")
 
-def lgis(sz: int, vec: list[int]) -> tuple(list[int], list[int]):
-    return (lxs(sz, vec, inc), lxs(sz, vec, dec))
+    return result[::-1]
 
 
 if __name__ == "__main__":
-    with open("rosalind_lgis.txt", "r") as f:
-        tup = f.read().splitlines()
-        sz = int(tup[0])
-        lst = list(map(int, tup[1].split(" ")))
-
-    for seq in lgis(sz, lst):
-        print(" ".join(str(x) for x in seq))
+    print(lis(5, [5, 1, 4, 2, 3]))
+    print(lis(5, [1, 2, 3, 4, 5]))
