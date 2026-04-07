@@ -62,8 +62,23 @@ def lis(sz: int, arr: list[int]) -> list[int]:
     return seq[::-1]
 
 
+def lds(sz: int, arr: list[int]) -> list[int]:
+
+    return [-elem for elem in lis(sz, [-elem for elem in arr])]
+
+
+def lgis(sz: int, arr: list[int]) -> tuple[list[int], list[int]]:
+
+    return (lis(sz, arr), lds(sz, arr))
+
+
 if __name__ == "__main__":
-    print(lis(5, [5, 1, 4, 2, 3]))
-    print(lis(5, [1, 2, 3, 4, 5]))
-    print(lis(5, [1, 2, 8, 4, 5]))
-    print(lis(4, [1, 2, 0, 3]))
+    with open("rosalind_lgis.txt", "r") as f:
+        tup = f.read().splitlines()
+        sz = int(tup[0])
+        arr = list(map(int, tup[1].split(" ")))
+
+    ans = lgis(sz, arr)
+
+    print(" ".join(str(x) for x in ans[0]))
+    print(" ".join(str(x) for x in ans[1]))
