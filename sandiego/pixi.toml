@@ -1,0 +1,12 @@
+[workspace]
+authors = ["Girish Vλas <vgd.vyas17@gmail.com>"]
+channels = ["conda-forge"]
+name = "sandiego"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+gcc_linux-64 = ">=15.2.0,<16"
+go = ">=1.26.2,<2"
