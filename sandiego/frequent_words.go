@@ -2,19 +2,12 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
 )
 
 func main() {
-	content, _ := os.ReadFile("frequent_words.txt")
 
-	lst := strings.Split(string(content), "\n")
-
-	hay := lst[0]
-	k, _ := strconv.Atoi(lst[1])
-
+	hay := "CGGAGGACTCTAGGTAACGCTTATCAGGTCCATAGGACATTCA"
+	k := 3
 	// var freq map[string]int = {}
 	freq := make(map[string]int, len(hay))
 
