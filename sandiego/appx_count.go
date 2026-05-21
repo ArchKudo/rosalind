@@ -67,7 +67,7 @@ func main() {
 		genome = "AACAAGCTGATAAACATTTAAAGAG"
 		m = 2
 	}
-	
+
 	pos := fuzzy_match(read, genome, m)
 	fmt.Println(len(pos))
 

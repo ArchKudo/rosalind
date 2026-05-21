@@ -2,21 +2,21 @@ package main
 
 import (
 	"fmt"
-	"strings"
-	"strconv"
-	"os"
 	mapset "github.com/deckarep/golang-set/v2"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func Hamming(a string, b string) int {
-	
+
 	d := 0
 
 	l := min(len(a), len(b))
 
 	for i := 0; i < l; i++ {
 		if a[i] != b[i] {
-			d += 1 
+			d += 1
 		}
 	}
 
@@ -24,7 +24,7 @@ func Hamming(a string, b string) int {
 }
 
 func Neighbours(pttrn string, d int) mapset.Set[string] {
-	
+
 	bases := mapset.NewSet[string]("A", "C", "G", "T")
 
 	if d == 0 {
@@ -32,9 +32,9 @@ func Neighbours(pttrn string, d int) mapset.Set[string] {
 	}
 
 	if len(pttrn) == 1 {
-		return bases	
+		return bases
 	}
-	
+
 	neighbours := mapset.NewSet[string]()
 
 	suffix := Neighbours(pttrn[1:], d)
@@ -52,13 +52,13 @@ func Neighbours(pttrn string, d int) mapset.Set[string] {
 	return neighbours
 }
 
-func main () {
+func main() {
 
 	// read := "ACG"
 	// d := 1
-	
-	content, err := os.ReadFile("neighbours.txt")
-	
+
+	content, err := os.ReadFile("neighbors.txt")
+
 	var read string
 	var d int
 
@@ -70,10 +70,9 @@ func main () {
 		read = "ACG"
 		d = 1
 	}
-	
+
 	neighbours := Neighbours(read, d)
 
-	
 	for val := range mapset.Elements(neighbours) {
 		fmt.Printf("%s ", val)
 	}
@@ -81,5 +80,3 @@ func main () {
 	fmt.Println()
 
 }
-
-
