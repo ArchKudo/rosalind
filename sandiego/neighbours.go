@@ -57,7 +57,7 @@ func main() {
 	// read := "ACG"
 	// d := 1
 
-	content, err := os.ReadFile("neighbors.txt")
+	content, err := os.ReadFile(".txt")
 
 	var read string
 	var d int
@@ -67,8 +67,8 @@ func main() {
 		read = x[0]
 		d, _ = strconv.Atoi(x[1])
 	} else {
-		read = "ACG"
-		d = 1
+		read = "ACGT"
+		d = 4
 	}
 
 	neighbours := Neighbours(read, d)
@@ -77,6 +77,6 @@ func main() {
 		fmt.Printf("%s ", val)
 	}
 
-	fmt.Println()
+	fmt.Println(neighbours.Cardinality())
 
 }

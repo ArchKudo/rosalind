@@ -31,7 +31,7 @@ func Hamming(a string, b string) (int, error) {
 
 func main() {
 
-	content, err := os.ReadFile("hamming_distance.txt")
+	content, err := os.ReadFile(".txt")
 
 	var read, bead string
 	if err == nil {
@@ -39,8 +39,8 @@ func main() {
 		read = arr[0]
 		bead = arr[1]
 	} else {
-		read = "GGGCCGTTGGT"
-		bead = "GGACCGTTGAC"
+		read = "CTACAGCAATACGATCATATGCGGATCCGCAGTGGCCGGTAGACACACGT"
+		bead = "CTACCCCGCTGCTCAATGACCGGGACTAAAGAGGCGAAGATTATGGTGTG"
 	}
 
 	dist, _ := Hamming(read, bead)

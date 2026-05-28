@@ -52,7 +52,7 @@ func fuzzy_match(read string, genome string, m int) []int {
 
 func main() {
 
-	content, err := os.ReadFile("appx_count.txt")
+	content, err := os.ReadFile(".txt")
 
 	var read, genome string
 	var m int
@@ -63,8 +63,8 @@ func main() {
 		genome = arr[1]
 		m, _ = strconv.Atoi(arr[2])
 	} else {
-		read = "AAAAA"
-		genome = "AACAAGCTGATAAACATTTAAAGAG"
+		read = "CCC"
+		genome = "CATGCCATTCGCATTGTCCCAGTGA"
 		m = 2
 	}
 

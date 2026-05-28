@@ -47,14 +47,14 @@ func Minima(skew []int) []int {
 }
 
 func main() {
-	content, err := os.ReadFile("skew_min.txt")
+	content, err := os.ReadFile(".txt")
 
 	var read string
 
 	if err == nil {
 		read = string(content)
 	} else {
-		read = string("TAAAGACTGCCGAGAGGCCAACACGAGTGCTAGAACGAGGGGCGTAAACGCGGGTCCGAT")
+		read = string("CATTCCAGTACTTCGATGATGGCGTGAAGA")
 	}
 
 	fmt.Println(read)
