@@ -56,7 +56,7 @@ func main() {
 			0.1 0.2 0.1 0.1 0.2
 		`
 	}
-	
+
 	lst := strings.Fields(content)
 	read := lst[0]
 	k, _ := strconv.Atoi(lst[1])
