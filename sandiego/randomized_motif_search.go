@@ -151,7 +151,7 @@ func Score(kmers []string) int {
 func main() {
 
 	var content string
-	file, err := os.ReadFile("rand_search.txt")
+	file, err := os.ReadFile("ranid_search.txt")
 
 	// content = string(file)
 
@@ -179,4 +179,32 @@ func main() {
 
 	fmt.Println(RandSearch(&r))
 
+	content = `
+		AAGCCAAA
+		AATCCTGG
+		GCTACTTG
+		ATGTTTTG
+	`
+
+	reads = strings.Fields(content)
+
+	content = `
+		CCA
+		CCT
+		CTT
+		TTG
+	`
+	kmers := strings.Fields(content)
+
+	fmt.Println(kmers)
+	fmt.Println(reads)
+
+	for k, v := range Profile(kmers) {
+		fmt.Printf("%c %.2f", k, v)
+		fmt.Println()
+	}
+
+	r = R{reads, len(reads), 3, 4, rand.New(rand.NewSource(42))}
+
+	fmt.Println(Motifs(&r, Profile(kmers)))
 }
