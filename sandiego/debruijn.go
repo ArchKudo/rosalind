@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
+	// "os"
+	// "strconv"
+	// "strings"
 )
 
 func Composition(read string, k int) []string {
@@ -38,31 +38,55 @@ func DeBruijn(read string, k int) map[string][]string {
 
 }
 
-func main() {
-	file, err := os.ReadFile("debruijn.txt")
-
-	var content string
-
-	if err == nil {
-		content = string(file)
-	} else {
-		content = `
-			4
-			AAGATTCTCTAAGA
-		`
-	}
-
-	lst := strings.Fields(content)
-	k, _ := strconv.Atoi(lst[0])
-	read := lst[1]
-
-	path := DeBruijn(read, k-1)
-
+func PrintDeBruijn(read string, k int) {
+	path := DeBruijn(read, k - 1)
+	
 	for prefix, suffixes := range path {
-		fmt.Printf("%s:", prefix)
-		for _, suffix := range suffixes {
-			fmt.Printf(" %s", suffix)
-		}
-		fmt.Println()
+			fmt.Printf("%s:", prefix)
+			for _, suffix := range suffixes {
+				fmt.Printf(" %s", suffix)
+			}
+			fmt.Println()
 	}
+}
+
+func main() {
+	// file, err := os.ReadFile(".txt")
+
+	// var content string
+
+	// if err == nil {
+	// 	content = string(file)
+	// } else {
+	// 	content = `
+	// 		4
+	// 		AAGATTCTCTAAGA
+	// 	`
+	// }
+
+	// lst := strings.Fields(content)
+	// k, _ := strconv.Atoi(lst[0])
+	// read := lst[1]
+
+	// path := DeBruijn(read, k-1)
+
+	// for prefix, suffixes := range path {
+	// 	fmt.Printf("%s:", prefix)
+	// 	for _, suffix := range suffixes {
+	// 		fmt.Printf(" %s", suffix)
+	// 	}
+	// 	fmt.Println()
+	// }
+
+	// PrintDeBruijn("TAATGCCATGGGATGTT", 4)
+	// PrintDeBruijn("TAATGCCATGGGATGTT", 3)
+	// PrintDeBruijn("TAATGCCATGGGATGTT", 2)
+
+	// PrintDeBruijn("TAATGCCATGGGATGTT", 3)
+	// fmt.Println()
+	// PrintDeBruijn("TAATGGGATGCCATGTT", 3)
+	// fmt.Println()
+	// PrintDeBruijn("TGTTGGGATGCCATAAT", 3)
+
+	PrintDeBruijn("AABAACAADAA", 4)
 }
