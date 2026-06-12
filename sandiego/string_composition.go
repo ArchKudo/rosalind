@@ -3,16 +3,16 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func Composition(read string, k int) []string {
 	L := len(read)
-	kmers := make([]string, L - k + 1)
+	kmers := make([]string, L-k+1)
 
-	for i := 0; i <= L - k; i++ {
-		kmers[i] = read[i:i+k]
+	for i := 0; i <= L-k; i++ {
+		kmers[i] = read[i : i+k]
 	}
 
 	return kmers
