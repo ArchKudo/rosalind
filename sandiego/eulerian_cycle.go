@@ -6,77 +6,37 @@ import (
 	"strings"
 )
 
-func Cycle(graph map[string][]string, start string) []string {
-	i := start
-	path := []string{i}
-
-	for {
-		stack, ok := graph[i]
-
-		if !ok {
-			break
-		}
-
-		last := len(stack) - 1
-		path = append(path, stack[last])
-		graph[i] = stack[:last]
-
-		if len(stack[:last]) == 0 {
-			delete(graph, i)
-		} else {
-			graph[i] = stack[:last]
-		}
-
-		i = stack[last]
-
-	}
-
-	return path
-}
-
-func CopyMap(graph map[string][]string) map[string][]string {
-	copymap := make(map[string][]string, len(graph))
-
-	for k, v := range graph {
-		if v == nil {
-			continue
-		}
-		copymap[k] = v
-	}
-
-	return copymap
-}
-
 func EulerianCycle(graph map[string][]string) []string {
 	var start string
-	var path []string
-
-	for k, _ := range graph {
+	for k := range graph {
 		start = k
 		break
 	}
 
-	for {
-		copymap := CopyMap(graph)
-		cycle := Cycle(copymap, start)
+	stack := []string{start}
+	cycle := []string{}
 
-		fmt.Println(cycle)
-		if len(copymap) == 0 {
-			path = cycle
-			break
+	for len(stack) > 0 {
+		v := stack[len(stack) - 1]
+
+		// fmt.Println(stack)
+
+		if len(graph[v]) > 0 {
+			next := graph[v][len(graph[v]) - 1]
+			graph[v] = graph[v][:len(graph[v]) - 1]
+			stack = append(stack, next)
+		} else {
+			cycle = append(cycle, v)
+			stack = stack[:len(stack) - 1]
 		}
-
-		for _, v := range copymap {
-			if v != nil {
-				start = v[len(v) - 1]
-				break
-			}
-		}
-
 	}
 
-	return path
+	// fmt.Println(cycle)
+	for i, j := 0, len(cycle) - 1; i < j; i, j = i+1, j-1 {
+		cycle[i], cycle[j] = cycle[j], cycle[i]
+	}
 
+	return cycle
 }
 
 func main() {
@@ -108,13 +68,11 @@ func main() {
 		lhs, rhs, _ := strings.Cut(strings.TrimSpace(edge), ":")
 		graph[lhs] = strings.Fields(rhs)
 	}
-	
-	fmt.Println(graph)
+
 	cycle := EulerianCycle(graph)
 
-	for _, v := range cycle {
-		fmt.Printf("%s ", v)
-	}
-	fmt.Println()
-
+	// for _, v := range cycle {
+	// 	// fmt.Printf("%s ", v)
+	// }
+	fmt.Println(cycle)
 }
