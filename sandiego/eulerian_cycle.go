@@ -17,30 +17,31 @@ func EulerianCycle(graph map[string][]string) []string {
 	cycle := []string{}
 
 	for len(stack) > 0 {
+
+		// Get the last value (graph-key) from the stack
 		v := stack[len(stack) - 1]
 
-		// fmt.Println(stack)
-
+		// If there are child nodes to follow
 		if len(graph[v]) > 0 {
+			// Get the last node
 			next := graph[v][len(graph[v]) - 1]
+			// Pop the node
 			graph[v] = graph[v][:len(graph[v]) - 1]
+			// Add the child node to stack
 			stack = append(stack, next)
 		} else {
-			cycle = append(cycle, v)
+			// if graph[v] has no children left add it to cycle
+			cycle = append([]string{v}, cycle...)
+			// Pop the last item of the stack
 			stack = stack[:len(stack) - 1]
 		}
-	}
-
-	// fmt.Println(cycle)
-	for i, j := 0, len(cycle) - 1; i < j; i, j = i+1, j-1 {
-		cycle[i], cycle[j] = cycle[j], cycle[i]
 	}
 
 	return cycle
 }
 
 func main() {
-	file, err := os.ReadFile("eulerian_cycle.txt")
+	file, err := os.ReadFile("eulerian_cycl.txt")
 
 	var content string
 
@@ -71,8 +72,5 @@ func main() {
 
 	cycle := EulerianCycle(graph)
 
-	// for _, v := range cycle {
-	// 	// fmt.Printf("%s ", v)
-	// }
 	fmt.Println(cycle)
 }
